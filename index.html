@@ -6,93 +6,138 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: radial-gradient(circle at top, #ffe6a7, #ffb3c6, #ffc8dd); color: #222; }
-    .card { background: rgba(255, 255, 255, 0.96); border-radius: 24px; padding: 26px 22px;
-      max-width: 460px; width: 92%; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18),
-      0 0 0 1px rgba(255, 255, 255, 0.7); text-align: center; backdrop-filter: blur(8px);
-      animation: popIn 0.7s ease-out; }
-    @keyframes popIn { 0% { opacity: 0; transform: translateY(16px) scale(0.96);}
-      100% { opacity: 1; transform: translateY(0) scale(1);} }
-    .tag { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: #ff6b81; margin-bottom: 6px; }
-    h1 { font-size: 1.9rem; margin-bottom: 4px; }
-    .name-highlight { color: #f4a300; font-weight: 700; }
-    .subtitle { font-size: 0.95rem; color: #555; margin-bottom: 18px; }
-    .intro-text, .confession-text { font-size: 0.98rem; line-height: 1.6; color: #444; }
-    .intro-text { margin-bottom: 18px; }
-    .btn-main { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 22px; border-radius: 999px; border: none; cursor: pointer;
-      background: linear-gradient(135deg, #ff6b81, #ff477e, #ff9a8b); color: #fff;
-      font-size: 0.98rem; font-weight: 600; box-shadow: 0 10px 20px rgba(255, 71, 126, 0.4);
-      transition: transform 0.15s ease; margin-top: 4px; }
+    body {
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe6a7, #ffb3c6, #ffc8dd);
+      color: #222;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 24px;
+      padding: 28px;
+      max-width: 500px;
+      width: 92%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      animation: popIn 0.7s ease-out;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .hidden { display: none; }
-    .confession-section { margin-top: 20px; text-align: left; }
-    .buttons-wrap { position: relative; display: flex; justify-content: center; gap: 12px; min-height: 70px; }
-    .btn-option { padding: 8px 18px; border-radius: 999px; border: none; cursor: pointer; font-weight: 600; }
-    .btn-yes { background: #4caf50; color: #fff; }
-    .btn-no { background: #fff; color: #ff4b6e; border: 1px solid #ffb3c6; position: absolute; }
-    .final-message { margin-top: 16px; padding: 12px; border-radius: 16px; display: none;
-      background: #f5fff7; border: 1px solid #c4f0cf; text-align: center; }
-    .note { margin-top: 12px; font-size: 0.8rem; color: #777; text-align: center; }
+    .confession-text {
+      text-align: left;
+      margin-top: 15px;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    .question-section {
+      margin-top: 20px;
+      border-top: 1px dashed #ffd0da;
+      padding-top: 15px;
+    }
+    .buttons-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* SPACE BETWEEN BUTTONS */
+      margin-top: 10px;
+    }
+    .btn-option {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .btn-yes { background: #4caf50; color: white; border: none; }
+    .btn-no  { background: white; border: 1px solid #ff4b6e; color: #ff4b6e; }
+    .btn-no:hover, .btn-yes:hover { transform: scale(1.05); }
+    .final-message {
+      display: none;
+      margin-top: 15px;
+      background: #f5fff7;
+      padding: 10px;
+      border: 1px solid #b3e2b6;
+      border-radius: 15px;
+      font-size: 1rem;
+    }
   </style>
 </head>
+
 <body>
   <main class="card">
-    <div class="tag">Small confession · Big courage</div>
-    <h1>Hey <span class="name-highlight">Banana</span> 💛</h1>
-    <p class="subtitle">I made this tiny website just for you. Yes, only you.</p>
-    <p class="intro-text" id="introText">There is something I have been wanting to tell you...</p>
-    <button class="btn-main" id="revealBtn"><span class="icon">💬</span>Click to reveal my secret</button>
-    <section class="confession-section hidden" id="confessionSection">
+    <h1>Hey Banana 💛</h1>
+    <p id="introText">I made this small page for you... Click below 👇</p>
+
+    <button id="revealBtn" class="btn-option" style="background:#ff477e; color:white;">
+      💬 Click to reveal my secret
+    </button>
+
+    <section id="confessionSection" class="hidden">
       <div class="confession-text">
-        <p>So, here it is: I really, genuinely like you...</p>
+        <p>So, here it is: I really, genuinely like you. Not just as “we are good friends and I enjoy talking to you”, but in the “you randomly pop into my mind and it makes me smile like an idiot” kind of way.</p>
+        <p>I love how bold and full of life you are. You walk into any place and it instantly feels more fun. You are loud in the best way, chaotic in the cutest way, and somehow you manage to make everything around you a little brighter.</p>
+        <p>I honestly look forward to every conversation with you. No matter how my day is going, talking to you makes it better.</p>
+        <p>So instead of just overthinking this forever… I’m finally asking you something properly.</p>
       </div>
-      <div class="buttons-wrap" id="buttonsWrap">
-        <button class="btn-option btn-yes" id="yesBtn">Yes</button>
-        <button class="btn-option btn-no" id="noBtn">No</button>
+
+      <div class="question-section">
+        <h3>Will you go on a date with me? 💛</h3>
+        <div class="buttons-wrap" id="buttonsWrap">
+          <button class="btn-option btn-yes" id="yesBtn">Yes</button>
+          <button class="btn-option btn-no"  id="noBtn">No</button>
+        </div>
       </div>
+
       <div class="final-message" id="finalMessage">
-        <p><strong>Yay!</strong> So… this means you are going on a date with me now.</p>
+        <strong>YAY! 🎉</strong> So… you just agreed to go on a date with me 😌<br>
+        Now I need one more answer 👉 When are you free? 😉
       </div>
-      <p class="note">(No pressure, Banana. I just wanted you to know how I feel. 💛)</p>
     </section>
   </main>
-<script>
-  const revealBtn = document.getElementById("revealBtn");
-  const confessionSection = document.getElementById("confessionSection");
-  const introText = document.getElementById("introText");
-  const yesBtn = document.getElementById("yesBtn");
-  const noBtn = document.getElementById("noBtn");
-  const finalMessage = document.getElementById("finalMessage");
-  const buttonsWrap = document.getElementById("buttonsWrap");
-  let noClickCount = 0;
-  revealBtn.addEventListener("click", () => {
-    confessionSection.classList.remove("hidden");
-    revealBtn.style.display = "none";
-    introText.style.display = "none";
-  });
-  function handleYes() {
-    buttonsWrap.style.display = "none";
-    finalMessage.style.display = "block";
-  }
-  yesBtn.addEventListener("click", handleYes);
-  noBtn.addEventListener("click", (event) => {
-    event.preventDefault();
-    noClickCount++;
-    if (noClickCount < 5) {
-      const maxMove = 120;
-      const randomX = (Math.random() * maxMove * 2) - maxMove;
-      const randomY = (Math.random() * maxMove * 2) - maxMove;
-      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-    } else if (noClickCount === 5) {
-      noBtn.style.transform = "translate(0, 0)";
-      noBtn.textContent = "Yes";
-    } else {
-      handleYes();
+
+  <script>
+    const revealBtn = document.getElementById("revealBtn");
+    const confessionSection = document.getElementById("confessionSection");
+    const introText = document.getElementById("introText");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const finalMessage = document.getElementById("finalMessage");
+    const buttonsWrap = document.getElementById("buttonsWrap");
+
+    let noClickCount = 0;
+
+    revealBtn.addEventListener("click", () => {
+      confessionSection.classList.remove("hidden");
+      revealBtn.style.display = "none";
+      introText.style.display = "none";
+    });
+
+    function handleYes() {
+      buttonsWrap.style.display = "none";
+      finalMessage.style.display = "block";
     }
-  });
-</script>
+    yesBtn.addEventListener("click", handleYes);
+
+    noBtn.addEventListener("click", () => {
+      noClickCount++;
+      if (noClickCount < 5) {
+        const randomX = (Math.random() * 200) - 100;
+        const randomY = (Math.random() * 200) - 100;
+        noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+      } else if (noClickCount === 5) {
+        noBtn.style.transform = "translate(0px, 0px)";
+        noBtn.textContent = "Yes";
+      } else {
+        handleYes();
+      }
+    });
+  </script>
 </body>
 </html>
